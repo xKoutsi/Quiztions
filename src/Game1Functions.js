@@ -12,12 +12,12 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
         // Hakee vastaukset API:sta ja sekoittaa oikean vastauksen väärien sekaan
-function haeVastaukset(){               
+function HaeVastaukset(){               
     let arpa = getRandomInt(que[0].incorrect_answers.length+1);
     console.log(que[0].incorrect_answers.length);
     let correctAnswer = '<Button onClick="{youAreRight}" variant="success">'+que[0].correct_answer+"</Button>";
     console.log(correctAnswer);
-    let kaikkiVastaukset = "<p>Question: "+que[0].question+"</p>";
+    let kaikkiVastaukset = "<div>Question: "+que[0].question+"</div>";
     for (let i = 0; i < arpa; i++) {
         kaikkiVastaukset = kaikkiVastaukset+"<Button>"+que[0].incorrect_answers[i]+"</Button>"
     }
@@ -46,7 +46,7 @@ async function questionGeo(){
     let response = await fetch(url+'api.php?amount=1&category=22&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    let kaikkiVastaukset = haeVastaukset()
+    let kaikkiVastaukset = HaeVastaukset()
 
     return (
         document.getElementById("questionBlock").innerHTML = "<p>Question:</p><p>"+que[0].question+"</p><br></br><p>Answer:</p><p>"+kaikkiVastaukset+"</p>"    
@@ -57,7 +57,7 @@ async function questionHis(){
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=23&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    let kaikkiVastaukset = haeVastaukset()
+    let kaikkiVastaukset = HaeVastaukset()
 
     return (
         document.getElementById("questionBlock").innerHTML = "<p>Question:</p><p>"+que[0].question+"</p><br></br><p>Answer:</p><p>"+kaikkiVastaukset+"</p>"    
@@ -68,7 +68,7 @@ async function questionSci(){
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=17&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    let kaikkiVastaukset = haeVastaukset()
+    let kaikkiVastaukset = HaeVastaukset()
 
     return (
         document.getElementById("questionBlock").innerHTML = "<p>Question:</p><p>"+que[0].question+"</p><br></br><p>Answer:</p><p>"+kaikkiVastaukset+"</p>"    
@@ -79,7 +79,7 @@ async function questionEnt(){
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=12&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    let kaikkiVastaukset = haeVastaukset()
+    let kaikkiVastaukset = HaeVastaukset()
 
     return (
         document.getElementById("questionBlock").innerHTML = "<p>Question:</p><p>"+que[0].question+"</p><br></br><p>Answer:</p><p>"+kaikkiVastaukset+"</p>"    
@@ -90,7 +90,7 @@ async function questionLit(){
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=10&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    let kaikkiVastaukset = haeVastaukset()
+    let kaikkiVastaukset = HaeVastaukset()
 
     return (
         document.getElementById("questionBlock").innerHTML = "<p>Question:</p><p>"+que[0].question+"</p><br></br><p>Answer:</p><p>"+kaikkiVastaukset+"</p>"    
@@ -101,14 +101,10 @@ async function questionSpo(){
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=21&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    let kaikkiVastaukset = haeVastaukset();
+    let kaikkiVastaukset = HaeVastaukset();
 
     return (
-        ReactDOM.render(
-
-            < /haeVastaukset>
-        )
-        
+        document.getElementById("questionBlock").innerHTML = "<p>"+kaikkiVastaukset+"</p>"
     )
 }
 
