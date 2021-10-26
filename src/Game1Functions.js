@@ -7,31 +7,30 @@ let APIkey = "";
 let que = [];
 let url = "https://opentdb.com/"
 
-
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
         // Hakee vastaukset API:sta ja sekoittaa oikean vastauksen väärien sekaan
 function HaeVastaukset(){               
-    let arpa = getRandomInt(que[0].incorrect_answers.length+1);
-    console.log(que[0].incorrect_answers.length);
-    let correctAnswer = '<Button onClick="{youAreRight}" variant="success">'+que[0].correct_answer+"</Button>";
-    console.log(correctAnswer);
-    let kaikkiVastaukset = "<div>Question: "+que[0].question+"</div>";
-    for (let i = 0; i < arpa; i++) {
-        kaikkiVastaukset = kaikkiVastaukset+"<Button>"+que[0].incorrect_answers[i]+"</Button>"
-    }
-    kaikkiVastaukset = kaikkiVastaukset+correctAnswer
-    for (let i = arpa; i < que[0].incorrect_answers.length; i++) {
-        kaikkiVastaukset = kaikkiVastaukset+"<Button>"+que[0].incorrect_answers[i]+"</Button>"
-    }
-    return kaikkiVastaukset  // Palauttaa vastaukset
+    let arpa = getRandomInt(que[0].incorrect_answers.length+1); // Arpoo väärän vastauksen paikan
+    let correctAnswer = <Button onClick={youAreRight} variant="answer">{que[0].correct_answer}</Button>;  // Oikea vastaus. 
+    let kaikkiVastaukset = [];  // Luodaan Array kaikille vastauksille
+    que[0].incorrect_answers.forEach(element => {       // Lisää väärät vastaukset nappeina Arrayhin
+        let temp = <Button variant="answer">{element}</Button>
+        kaikkiVastaukset.push(temp);
+    });        
+    kaikkiVastaukset.splice (arpa, 0, correctAnswer);   // Laittaa oikean vastauksen arvottuun paikkaan väärien sekaan
+    
+    return ( kaikkiVastaukset  // Palauttaa vastaukset
+    )
 }
 
+
 function youAreRight(){
-    return (
-        document.getElementById("questionBlock").innerHTML = "<p>Correct! Play again, by choosing category!</p>"    
-    )
+    
+        const onnea = "Correct! Answer to a new question by clicking on category."
+        ReactDOM.render (onnea, document.getElementById("answerBlock"));
+    
 }
 
 async function getQuestionKey(){
@@ -46,66 +45,67 @@ async function questionGeo(){
     let response = await fetch(url+'api.php?amount=1&category=22&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    let kaikkiVastaukset = HaeVastaukset()
+    const kaikkiVastaukset = <div>{HaeVastaukset()}</div>
+    const kysymys = que[0].question
 
-    return (
-        document.getElementById("questionBlock").innerHTML = "<p>Question:</p><p>"+que[0].question+"</p><br></br><p>Answer:</p><p>"+kaikkiVastaukset+"</p>"    
-    )
+    ReactDOM.render (kysymys, document.getElementById("questionBlock"))
+    ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
 }
 
 async function questionHis(){
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=23&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    let kaikkiVastaukset = HaeVastaukset()
+    const kaikkiVastaukset = <div>{HaeVastaukset()}</div>
+    const kysymys = que[0].question
 
-    return (
-        document.getElementById("questionBlock").innerHTML = "<p>Question:</p><p>"+que[0].question+"</p><br></br><p>Answer:</p><p>"+kaikkiVastaukset+"</p>"    
-    )
+    ReactDOM.render (kysymys, document.getElementById("questionBlock"))
+    ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
 }
 
 async function questionSci(){
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=17&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    let kaikkiVastaukset = HaeVastaukset()
+    const kaikkiVastaukset = <div>{HaeVastaukset()}</div>
+    const kysymys = que[0].question
 
-    return (
-        document.getElementById("questionBlock").innerHTML = "<p>Question:</p><p>"+que[0].question+"</p><br></br><p>Answer:</p><p>"+kaikkiVastaukset+"</p>"    
-    )
+    ReactDOM.render (kysymys, document.getElementById("questionBlock"))
+    ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
 }
 
 async function questionEnt(){
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=12&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    let kaikkiVastaukset = HaeVastaukset()
+    const kaikkiVastaukset = <div>{HaeVastaukset()}</div>
+    const kysymys = que[0].question
 
-    return (
-        document.getElementById("questionBlock").innerHTML = "<p>Question:</p><p>"+que[0].question+"</p><br></br><p>Answer:</p><p>"+kaikkiVastaukset+"</p>"    
-    )
+    ReactDOM.render (kysymys, document.getElementById("questionBlock"))
+    ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
 }
 
 async function questionLit(){
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=10&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    let kaikkiVastaukset = HaeVastaukset()
+    const kaikkiVastaukset = <div>{HaeVastaukset()}</div>
+    const kysymys = que[0].question
 
-    return (
-        document.getElementById("questionBlock").innerHTML = "<p>Question:</p><p>"+que[0].question+"</p><br></br><p>Answer:</p><p>"+kaikkiVastaukset+"</p>"    
-    )
+    ReactDOM.render (kysymys, document.getElementById("questionBlock"))
+    ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
 }
 
 async function questionSpo(){
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=21&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    let kaikkiVastaukset = HaeVastaukset();
+    const kaikkiVastaukset = <div>{HaeVastaukset()}</div>
+    const kysymys = <h2>{que[0].question}</h2>
 
-    return (
-        document.getElementById("questionBlock").innerHTML = "<p>"+kaikkiVastaukset+"</p>"
-    )
+    ReactDOM.render (kysymys, document.getElementById("questionBlock"))
+    ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
+
 }
 
 
