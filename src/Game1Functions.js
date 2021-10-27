@@ -4,20 +4,23 @@ import './styles.css';
 import './index.css';
 import ReactDOM from 'react-dom';
 let APIkey = "";
-let que = [];
+let que = [{question:"Click on a category for a question."}];
 let url = "https://opentdb.com/"
+
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
+
         // Hakee vastaukset API:sta ja sekoittaa oikean vastauksen väärien sekaan
 function HaeVastaukset(){               
     let arpa = getRandomInt(que[0].incorrect_answers.length+1); // Arpoo väärän vastauksen paikan
-    let correctAnswer = <Button onClick={youAreRight} variant="answer">{que[0].correct_answer}</Button>;  // Oikea vastaus. 
+    let correctAnswer = <Button key="correct" onClick={youAreRight} variant="answer">{que[0].correct_answer}</Button>  // Oikea vastaus. 
     let kaikkiVastaukset = [];  // Luodaan Array kaikille vastauksille
     que[0].incorrect_answers.forEach(element => {       // Lisää väärät vastaukset nappeina Arrayhin
-        let temp = <Button variant="answer">{element}</Button>
+        let temp = <Button key={element} variant="answer">{element}</Button>
         kaikkiVastaukset.push(temp);
+       
     });        
     kaikkiVastaukset.splice (arpa, 0, correctAnswer);   // Laittaa oikean vastauksen arvottuun paikkaan väärien sekaan
     
@@ -33,6 +36,8 @@ function youAreRight(){
     
 }
 
+
+
 async function getQuestionKey(){
     let response = await fetch(url+'api_token.php?command=request');
     let data = await response.json();
@@ -45,8 +50,8 @@ async function questionGeo(){
     let response = await fetch(url+'api.php?amount=1&category=22&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    const kaikkiVastaukset = <div>{HaeVastaukset()}</div>
-    const kysymys = que[0].question
+    let kaikkiVastaukset = HaeVastaukset()
+    let kysymys = <h2>{que[0].question}</h2>
 
     ReactDOM.render (kysymys, document.getElementById("questionBlock"))
     ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
@@ -56,8 +61,8 @@ async function questionHis(){
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=23&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    const kaikkiVastaukset = <div>{HaeVastaukset()}</div>
-    const kysymys = que[0].question
+    let kaikkiVastaukset = HaeVastaukset()
+    let kysymys = <h2>{que[0].question}</h2>
 
     ReactDOM.render (kysymys, document.getElementById("questionBlock"))
     ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
@@ -67,8 +72,8 @@ async function questionSci(){
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=17&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    const kaikkiVastaukset = <div>{HaeVastaukset()}</div>
-    const kysymys = que[0].question
+    let kaikkiVastaukset = HaeVastaukset()
+    let kysymys = <h2>{que[0].question}</h2>
 
     ReactDOM.render (kysymys, document.getElementById("questionBlock"))
     ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
@@ -78,8 +83,8 @@ async function questionEnt(){
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=12&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    const kaikkiVastaukset = <div>{HaeVastaukset()}</div>
-    const kysymys = que[0].question
+    let kaikkiVastaukset = HaeVastaukset()
+    let kysymys = <h2>{que[0].question}</h2>
 
     ReactDOM.render (kysymys, document.getElementById("questionBlock"))
     ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
@@ -89,8 +94,8 @@ async function questionLit(){
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=10&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    const kaikkiVastaukset = <div>{HaeVastaukset()}</div>
-    const kysymys = que[0].question
+    let kaikkiVastaukset = HaeVastaukset()
+    let kysymys = <h2>{que[0].question}</h2>
 
     ReactDOM.render (kysymys, document.getElementById("questionBlock"))
     ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
@@ -100,8 +105,8 @@ async function questionSpo(){
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=21&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    const kaikkiVastaukset = <div>{HaeVastaukset()}</div>
-    const kysymys = <h2>{que[0].question}</h2>
+    let kaikkiVastaukset = HaeVastaukset()
+    let kysymys = <h2>{que[0].question}</h2>
 
     ReactDOM.render (kysymys, document.getElementById("questionBlock"))
     ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
@@ -128,7 +133,7 @@ const game1Functions = () => {
                 <Button variant="spo" onClick={questionSpo}>Sports & Leisure</Button>                
             </div>
             <div id="questionBlock">
-
+                
             </div>
             <div id="answerBlock">
 
