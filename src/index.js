@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Game1 from './Game1';
-import Game2 from './Game2';
+// import Game2 from './Game2';
 
 
 ReactDOM.render(
@@ -16,7 +16,7 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={App}/>
         <Route exact path="/Game1" component={Game1}/>
-        <Route exact path="/Game2" component={Game2}/>
+        
       </Switch>
     </Router>
   </React.StrictMode>,
