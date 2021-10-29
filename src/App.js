@@ -34,7 +34,7 @@ class App extends Component {            // Logo ja sen alla main menu
             </Container>
             
         </header>
-
+        
       </div>
     );
   }

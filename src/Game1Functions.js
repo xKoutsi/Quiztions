@@ -18,7 +18,7 @@ function HaeVastaukset(){
     let correctAnswer = <Button key="correct" onClick={youAreRight} variant="answer">{que[0].correct_answer}</Button>  // Oikea vastaus. 
     let kaikkiVastaukset = [];  // Luodaan Array kaikille vastauksille
     que[0].incorrect_answers.forEach(element => {       // Lisää väärät vastaukset nappeina Arrayhin
-        let temp = <Button key={element} variant="answer">{element}</Button>
+        let temp = <Button key={element} variant="answer" onClick={youAreWrong}>{element}</Button>
         kaikkiVastaukset.push(temp);
        
     });        
@@ -31,9 +31,16 @@ function HaeVastaukset(){
 
 function youAreRight(){
     
-        const onnea = "Correct! Answer to a new question by clicking on category."
+        const onnea = "Correct! Answer to a new question by clicking on a category."
         ReactDOM.render (onnea, document.getElementById("answerBlock"));
     
+}
+
+function youAreWrong(){
+    
+    const onnea = "Incorrect! Try again, by clicking on a category."
+    ReactDOM.render (onnea, document.getElementById("answerBlock"));
+
 }
 
 

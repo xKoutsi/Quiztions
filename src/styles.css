@@ -13,44 +13,52 @@
   background-color:blue;
   color: white;
   margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .btn-his {
   background-color:yellow;
   color: black;
   margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .btn-sci {
   background-color: lightgreen;
   color: black;
   margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .btn-lit {
   background-color:purple;
   color: white;
   margin-right: 10px;
+  margin-bottom: 10px;
 }
 .btn-ent {
   background-color:pink;
   color: black;
   margin-right: 10px;
+  margin-bottom: 10px;
 }
 .btn-spo {
   background-color:orange;
   color: black;
   margin-right: 10px;
+  margin-bottom: 10px;
 }
 .btn-corr {
   background-color:greenyellow;
   color: black;
   margin-right: 10px;
+  margin-bottom: 10px;
 }
 .btn-answer {
   margin-right: 10px;
   background-color:cadetblue;
   color: black;
+  margin-bottom: 10px;
 }
 
 .btn-xxl {
