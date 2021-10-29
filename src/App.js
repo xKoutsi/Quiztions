@@ -20,17 +20,17 @@ class App extends Component {            // Logo ja sen alla main menu
                     </div>
                 </Row>
                 <br />
-                <Row>
+                {/* <Row>
                     <div className="col text-center">
                       <a href="/game2" className="btn btn-primary">German Quiz</a>                   
                     </div>
                 </Row>
-                <br />
-                <Row>
+                <br /> */}
+                {/* <Row>
                     <div className="col text-center">
                       <a href="/options" className="btn btn-info">Options</a>                   
                     </div>
-                </Row>
+                </Row> */}
             </Container>
             
         </header>
