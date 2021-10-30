@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 let APIkey = "";
 let que = [{question:"Click on a category for a question."}];
 let url = "https://opentdb.com/"
+let questionFinal;
 
 
 function getRandomInt(max) {
@@ -18,7 +19,8 @@ function HaeVastaukset(){
     let correctAnswer = <Button key="correct" onClick={youAreRight} variant="answer">{que[0].correct_answer}</Button>  // Oikea vastaus. 
     let kaikkiVastaukset = [];  // Luodaan Array kaikille vastauksille
     que[0].incorrect_answers.forEach(element => {       // Lisää väärät vastaukset nappeina Arrayhin
-        let temp = <Button key={element} variant="answer" onClick={youAreWrong}>{element}</Button>
+        const decodedString = parser.parseFromString(`<!doctype html><body>${element}`, 'text/html').body.textContent;  // Decodaa erikoismerkit
+        let temp = <Button key={element} variant="answer" onClick={youAreWrong}>{decodedString}</Button>
         kaikkiVastaukset.push(temp);
        
     });        
@@ -58,7 +60,8 @@ async function questionGeo(){
     let data = await response.json();
     que = await data.results;
     let kaikkiVastaukset = HaeVastaukset()
-    let kysymys = <h2>{que[0].question}</h2>
+    const decodedString = parser.parseFromString(`<!doctype html><body>${que[0].question}`, 'text/html').body.textContent;
+    let kysymys = <h2>{decodedString}</h2>
 
     ReactDOM.render (kysymys, document.getElementById("questionBlock"))
     ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
@@ -69,7 +72,8 @@ async function questionHis(){
     let data = await response.json();
     que = await data.results;
     let kaikkiVastaukset = HaeVastaukset()
-    let kysymys = <h2>{que[0].question}</h2>
+    const decodedString = parser.parseFromString(`<!doctype html><body>${que[0].question}`, 'text/html').body.textContent;
+    let kysymys = <h2>{decodedString}</h2>
 
     ReactDOM.render (kysymys, document.getElementById("questionBlock"))
     ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
@@ -80,7 +84,8 @@ async function questionSci(){
     let data = await response.json();
     que = await data.results;
     let kaikkiVastaukset = HaeVastaukset()
-    let kysymys = <h2>{que[0].question}</h2>
+    const decodedString = parser.parseFromString(`<!doctype html><body>${que[0].question}`, 'text/html').body.textContent;
+    let kysymys = <h2>{decodedString}</h2>
 
     ReactDOM.render (kysymys, document.getElementById("questionBlock"))
     ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
@@ -91,7 +96,8 @@ async function questionEnt(){
     let data = await response.json();
     que = await data.results;
     let kaikkiVastaukset = HaeVastaukset()
-    let kysymys = <h2>{que[0].question}</h2>
+    const decodedString = parser.parseFromString(`<!doctype html><body>${que[0].question}`, 'text/html').body.textContent;
+    let kysymys = <h2>{decodedString}</h2>
 
     ReactDOM.render (kysymys, document.getElementById("questionBlock"))
     ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
@@ -102,8 +108,9 @@ async function questionLit(){
     let data = await response.json();
     que = await data.results;
     let kaikkiVastaukset = HaeVastaukset()
-    let kysymys = <h2>{que[0].question}</h2>
-
+    const decodedString = parser.parseFromString(`<!doctype html><body>${que[0].question}`, 'text/html').body.textContent;
+    let kysymys = <h2>{decodedString}</h2>
+    
     ReactDOM.render (kysymys, document.getElementById("questionBlock"))
     ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
 }
@@ -112,21 +119,25 @@ async function questionSpo(){
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=21&token='+APIkey);
     let data = await response.json();
     que = await data.results;
-    let kaikkiVastaukset = HaeVastaukset()
-    let kysymys = <h2>{que[0].question}</h2>
-
+    let kaikkiVastaukset = HaeVastaukset();
+    const decodedString = parser.parseFromString(`<!doctype html><body>${que[0].question}`, 'text/html').body.textContent;
+    let kysymys = <h2>{decodedString}</h2>
+    
     ReactDOM.render (kysymys, document.getElementById("questionBlock"))
     ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
-
+    
 }
 
+const parser = new DOMParser();
 
 
 const game1Functions = () => {
+    let kys = questionFinal;
     return (
         
         <div className="game1container">
-            <div id="questionButtons">
+            <br />
+            <div id="questionNav">
                 <Button variant="geo" onClick={questionGeo}>Geography</Button>
 
                 <Button variant="his" onClick={questionHis}>History</Button>
@@ -139,9 +150,12 @@ const game1Functions = () => {
 
                 <Button variant="spo" onClick={questionSpo}>Sports & Leisure</Button>                
             </div>
+            <br />
+            
             <div id="questionBlock">
-                
+                {kys}
             </div>
+            <br />
             <div id="answerBlock">
 
             </div>
