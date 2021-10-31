@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 let APIkey = "";
 let que = [{question:"Click on a category for a question."}];
 let url = "https://opentdb.com/"
-let questionFinal;
+
 
 
 function getRandomInt(max) {
@@ -80,7 +80,19 @@ async function questionHis(){
 }
 
 async function questionSci(){
-    let response = await fetch('https://opentdb.com/api.php?amount=1&category=17&token='+APIkey);
+    let categoryPicker = 0
+    let randomNumber = getRandomInt(4)
+    if (randomNumber === 0){            // Regular science
+        categoryPicker = 17;
+    } else if (randomNumber === 1){     // Computers n shit
+        categoryPicker = 18;
+    } else if (randomNumber === 2){     // Maths
+        categoryPicker = 19;
+    } else {                            // Gadgets
+        categoryPicker = 30;
+    }
+    
+    let response = await fetch('https://opentdb.com/api.php?amount=1&category='+categoryPicker+'&token='+APIkey);
     let data = await response.json();
     que = await data.results;
     let kaikkiVastaukset = HaeVastaukset()
@@ -92,7 +104,26 @@ async function questionSci(){
 }
 
 async function questionEnt(){
-    let response = await fetch('https://opentdb.com/api.php?amount=1&category=12&token='+APIkey);
+    let categoryPicker = 0
+    let randomNumber = getRandomInt(8)
+    if (randomNumber === 0){            // Music
+        categoryPicker = 12;
+    } else if(randomNumber === 1){      // Film
+        categoryPicker = 11;
+    } else if(randomNumber === 2){      // Theater / Musical
+        categoryPicker = 13;
+    } else if(randomNumber === 3){      // TV
+        categoryPicker = 14;
+    } else if(randomNumber === 4){      // Gaming
+        categoryPicker = 15;
+    } else if(randomNumber === 5){      // Board Games
+        categoryPicker = 16;
+    } else if(randomNumber === 6){      // Anime / Manga
+        categoryPicker = 31;
+    } else {                            // Cartoon
+        categoryPicker = 32;
+    }
+    let response = await fetch('https://opentdb.com/api.php?amount=1&category='+categoryPicker+'&token='+APIkey);
     let data = await response.json();
     que = await data.results;
     let kaikkiVastaukset = HaeVastaukset()
@@ -104,7 +135,14 @@ async function questionEnt(){
 }
 
 async function questionLit(){
-    let response = await fetch('https://opentdb.com/api.php?amount=1&category=10&token='+APIkey);
+    let categoryPicker = 0
+    let randomNumber = getRandomInt(2)
+    if (randomNumber === 0){            // Literature
+        categoryPicker = 10;
+    }  else {                           // Art
+        categoryPicker = 25;
+    }
+    let response = await fetch('https://opentdb.com/api.php?amount=1&category='+categoryPicker+'&token='+APIkey);
     let data = await response.json();
     que = await data.results;
     let kaikkiVastaukset = HaeVastaukset()
@@ -132,7 +170,7 @@ const parser = new DOMParser();
 
 
 const game1Functions = () => {
-    let kys = questionFinal;
+    
     return (
         
         <div className="game1container">
@@ -153,7 +191,7 @@ const game1Functions = () => {
             <br />
             
             <div id="questionBlock">
-                {kys}
+                
             </div>
             <br />
             <div id="answerBlock">
