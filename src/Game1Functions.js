@@ -6,8 +6,8 @@ import ReactDOM from 'react-dom';
 let APIkey = "";
 let que = [{question:"Click on a category for a question."}];
 let url = "https://opentdb.com/"
-
-
+let streak = 0;
+let vastasiOikein = false;
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -30,16 +30,24 @@ function HaeVastaukset(){
     )
 }
 
+function vastasikoOikein(){
+    if (vastasiOikein === false) {
+        streak = 0 ;
+    } else {
+        vastasiOikein = false;
+    }
+}
 
 function youAreRight(){
-    
-        const onnea = "Correct! Answer to a new question by clicking on a category."
+        streak = streak+1;
+        vastasiOikein = true;
+        const onnea = "Correct! Answer to a new question by clicking on a category. Your streak is now "+streak+" correct answers.";
         ReactDOM.render (onnea, document.getElementById("answerBlock"));
     
 }
 
 function youAreWrong(){
-    
+    streak = 0;
     const onnea = "Incorrect! Try again, by clicking on a category."
     ReactDOM.render (onnea, document.getElementById("answerBlock"));
 
@@ -56,6 +64,7 @@ async function getQuestionKey(){
 getQuestionKey();
 
 async function questionGeo(){
+    vastasikoOikein();
     let response = await fetch(url+'api.php?amount=1&category=22&token='+APIkey);
     let data = await response.json();
     que = await data.results;
@@ -63,11 +72,13 @@ async function questionGeo(){
     const decodedString = parser.parseFromString(`<!doctype html><body>${que[0].question}`, 'text/html').body.textContent;
     let kysymys = <h2>{decodedString}</h2>
 
+    
     ReactDOM.render (kysymys, document.getElementById("questionBlock"))
     ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
 }
 
 async function questionHis(){
+    vastasikoOikein();
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=23&token='+APIkey);
     let data = await response.json();
     que = await data.results;
@@ -91,7 +102,7 @@ async function questionSci(){
     } else {                            // Gadgets
         categoryPicker = 30;
     }
-    
+    vastasikoOikein();
     let response = await fetch('https://opentdb.com/api.php?amount=1&category='+categoryPicker+'&token='+APIkey);
     let data = await response.json();
     que = await data.results;
@@ -123,6 +134,7 @@ async function questionEnt(){
     } else {                            // Cartoon
         categoryPicker = 32;
     }
+    vastasikoOikein();
     let response = await fetch('https://opentdb.com/api.php?amount=1&category='+categoryPicker+'&token='+APIkey);
     let data = await response.json();
     que = await data.results;
@@ -142,6 +154,7 @@ async function questionLit(){
     }  else {                           // Art
         categoryPicker = 25;
     }
+    vastasikoOikein();
     let response = await fetch('https://opentdb.com/api.php?amount=1&category='+categoryPicker+'&token='+APIkey);
     let data = await response.json();
     que = await data.results;
@@ -149,11 +162,14 @@ async function questionLit(){
     const decodedString = parser.parseFromString(`<!doctype html><body>${que[0].question}`, 'text/html').body.textContent;
     let kysymys = <h2>{decodedString}</h2>
     
+   
+
     ReactDOM.render (kysymys, document.getElementById("questionBlock"))
     ReactDOM.render (kaikkiVastaukset, document.getElementById("answerBlock"))
 }
 
 async function questionSpo(){
+    vastasikoOikein();
     let response = await fetch('https://opentdb.com/api.php?amount=1&category=21&token='+APIkey);
     let data = await response.json();
     que = await data.results;
@@ -197,7 +213,7 @@ const game1Functions = () => {
             <div id="answerBlock">
 
             </div>
-
+            
         </div>
 
 
